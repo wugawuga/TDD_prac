@@ -1,6 +1,8 @@
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -9,7 +11,6 @@ public class CarTest {
     @ParameterizedTest
     @ValueSource(strings = {
         "123456",
-        "      ",
         "bkdkdie",
         "1jfdk2id"
     })
@@ -17,12 +18,11 @@ public class CarTest {
 
         assertThatThrownBy(() -> new Car(carName))
             .isInstanceOf(IllegalArgumentException.class)
-            .hasMessage("5자를 초과할 수 없습니다");
+            .hasMessage("5자를 초과할 수 없어요");
     }
 
     @ParameterizedTest
     @ValueSource(strings = {
-        "  ",
         "b",
         "1jf"
     })
@@ -30,5 +30,50 @@ public class CarTest {
 
         assertThatCode(() -> new Car(carName))
             .doesNotThrowAnyException();
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+        "  ",
+        "       ",
+        "     "
+    })
+    public void 공백처리(String carName) {
+
+        assertThatCode(() -> new Car(carName))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("공백은 입력할 수 없어요");
+    }
+
+    @Test
+    public void Null값처리() {
+
+        assertThatCode(() -> new Car(null))
+            .isInstanceOf(NullPointerException.class)
+            .hasMessage("null값은 입력은 수 없어요");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+        "4",
+        "5",
+        "8"
+    })
+    public void random값_4이상일때_한칸전진(int rand) {
+
+        Car car = new Car("wuga");
+        assertThat(car.move(rand)).isEqualTo(1);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+        "1",
+        "0",
+        "3"
+    })
+    public void random값_4미만일때_정지(int rand) {
+
+        Car car = new Car("wuga");
+        assertThat(car.move(rand)).isEqualTo(0);
     }
 }
