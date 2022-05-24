@@ -2,6 +2,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -75,5 +78,21 @@ public class CarTest {
 
         Car car = new Car("wuga");
         assertThat(car.move(rand)).isEqualTo(0);
+    }
+
+    @Test
+    public void 난수0_9만출력() {
+
+        for (int i = 0; i < 1000; i++) {
+            assertThat(Car.create()).isBetween(0, 9);
+        }
+    }
+
+    @Test
+    public void 이름분류() {
+
+        String s = "aaaa, bbbb, cccc";
+        Cars car = new Cars(s);
+        assertThat(car.getCars().size()).isEqualTo(3);
     }
 }

@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Car {
 
     private String carName;
@@ -12,11 +14,20 @@ public class Car {
         if (carName.length() > 5) {
             throw new IllegalArgumentException("5자를 초과할 수 없어요");
         }
+        this.carName = carName;
     }
 
     public int move(int rand) {
 
         if (rand >= 4) return 1;
         else return 0;
+    }
+
+    public static int create() {
+        return new Random().nextInt(10);
+    }
+
+    public String getCarName() {
+        return carName;
     }
 }
