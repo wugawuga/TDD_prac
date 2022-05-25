@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Cars {
@@ -14,6 +15,12 @@ public class Cars {
         for (String carNameStrip : carArr) {
             cars.add(new Car(carNameStrip));
         }
+    }
+
+    public int move() {
+        int rand = new Random().nextInt(10);
+        if (rand > 3){ return 1;}
+        else return 0;
     }
 
     public List<Car> getCars() {
