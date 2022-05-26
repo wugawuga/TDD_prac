@@ -17,7 +17,7 @@ public class Cars {
         }
     }
 
-    public int move() {
+    public int moveCount() {
         int rand = new Random().nextInt(10);
         if (rand > 3){ return 1;}
         else return 0;
@@ -25,6 +25,13 @@ public class Cars {
 
     public List<Car> getCars() {
         return cars;
+    }
+
+    public String moving() {
+        int moveCount = moveCount();
+        if (moveCount == 1) {
+            return "-";
+        } else return "";
     }
 
     public static void main(String[] args) {
